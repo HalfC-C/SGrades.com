@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class SgadesConfig(AppConfig):
+class SGradesConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'SGades'
+    name = 'SGrades'
