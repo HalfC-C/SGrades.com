@@ -2,70 +2,78 @@
 
 {% block content %} 
 
-    {% if user.is_authenticated %}
-
+    {% if missing_user %}
         <br>
         <h1 style="text-align:center">
-            {{ Student_list.Name }}'s Grades
+            {{ current_student }}, you don't have any data.
         </h1>
         <hr>
-
-        {% for grades in Grades_list %}
-            {% if grades.Student.Name == Student_list.Name %}
-
-                <table class="table">
-                    <thead>
-                        <br><br>
-                        <p style="text-align:center">
-                            <b>
-                                {{grades.Subject_Grades.Subject_Name}}
-                            </b>
-                        </p>
-                        <hr>
-                        <tr style="text-align:center">
-                        <th scope="col">Item Name</th>
-                        <th scope="col">Punctuation</th>
-                        <th scope="col">Date</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for submit in Submit_list %}
-                            
-                            {% if submit.Student.Name == Student_list.Name and submit.Item_Submitted.Item_From_Subject.Subject_Name == grades.Subject_Grades.Subject_Name %}    
-                                <tr style="text-align:center">
-                                    <td>
-                                        {{submit.Item_Submitted.Item_Name}}
-                                    </td>
-                                    <td>
-                                        {{submit.Punctuation}}
-                                    </td>
-                                    <td>
-                                        {{submit.Item_Submitted.Date}}
-                                    </td>
-                                </tr>
-                            {% endif %}
-                        {% endfor %}
-                    </tbody>
-                </table>
-            {% endif %}
-        {% endfor %}
-
     {% else %}
 
-        <p style="text-align:center">
-            <font size="+3" style="padding: 20">
-                You are not logged in
-            </font>
-            
-        </p>
-        <p style="text-align:center">
-            <a href="{% url 'login' %}" style="padding: 20;">
-                Log In
-            </a>
-        </p>
-        
+        {% if user.is_authenticated %}
 
+            <br>
+            <h1 style="text-align:center">
+                {{ current_student }}'s Grades
+            </h1>
+            <hr>
+
+            {% for grades in Grades_list %}
+                {% if grades.Student.Name == current_student %}
+
+                    <table class="table">
+                        <thead>
+                            <br><br>
+                            <p style="text-align:center">
+                                <b>
+                                    {{grades.Subject_Grades.Subject_Name}}
+                                </b>
+                            </p>
+                            <hr>
+                            <tr style="text-align:center">
+                            <th scope="col">Item Name</th>
+                            <th scope="col">Punctuation</th>
+                            <th scope="col">Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for submit in Submit_list %}
+                                
+                                {% if submit.Student.Name == current_student and submit.Item_Submitted.Item_From_Subject.Subject_Name == grades.Subject_Grades.Subject_Name %}    
+                                    <tr style="text-align:center">
+                                        <td>
+                                            {{submit.Item_Submitted.Item_Name}}
+                                        </td>
+                                        <td>
+                                            {{submit.Punctuation}}
+                                        </td>
+                                        <td>
+                                            {{submit.Item_Submitted.Date}}
+                                        </td>
+                                    </tr>
+                                {% endif %}
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                {% endif %}
+            {% endfor %}
+
+        {% else %}
+
+            <p style="text-align:center">
+                <font size="+3" style="padding: 20">
+                    You are not logged in
+                </font>
+                
+            </p>
+            <p style="text-align:center">
+                <a href="{% url 'login' %}" style="padding: 20;">
+                    Log In
+                </a>
+            </p>
+            
+
+        {% endif %}
     {% endif %}
-    
 
 {% endblock content %}

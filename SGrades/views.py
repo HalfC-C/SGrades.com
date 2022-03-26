@@ -59,9 +59,9 @@ def ExpedientView(request):
                             # print(f'{subject.Subject_Name} --- {submit.Item_Submitted.Item_Name} -- {item.Ponderation} --- {submit.Punctuation}')
                             value = item.Ponderation * (submit.Punctuation / 100)
                             # print(item.Ponderation * (submit.Punctuation / 100))
-                            grades.append(round(value, 2))
+                            grades.append(value)
 
-                grade.Mean = sum(grades)
+                grade.Mean = round(sum(grades), 2)
 
                 grades = []
                 # print(f'{subject.Subject_Name} --- {grade.Mean}')
@@ -81,10 +81,31 @@ def GradesView(request):
         context = {}
         return render(request, 'grades.html', context)
 
+    # print(User.objects.all())
+    # print(request.user)
+    print(current_student)
+    # for student in User.objects.all():
+    #     print(student.username)
+
+    missing_user = True
+    Student_list = Student.objects.all()
+    # print(Student_list)
+    # print(current_student)
+
+    for student in Student_list:
+        if current_student.username == student.Name:
+            missing_user = False
+           # Student_list = Student.objects.get(Name = current_student)
+
+
+
     Submit_list = Submit.objects.all()
-    Student_list = Student.objects.get(Name = current_student)
+    # Student_list = Student.objects.get(Name = current_student)
     Grades_list = Grade.objects.all()
     Item_list = Item.objects.all()
+
+    
+    print('\n\n')
 
     # for grades in Grades_list:
     #     if grades.Student_Nif.Name == Student_list.Name:
@@ -96,9 +117,11 @@ def GradesView(request):
 
     context = {
         'Submit_list' : Submit_list,
-        'Student_list' : Student_list,
+      #  'Student_list' : Student_list,
         'Grades_list' : Grades_list,
        # 'Item_list' : Item_list,
+        'missing_user' : missing_user,
+        'current_student' : current_student.username,
     }
 
     return render(request, 'grades.html', context)
