@@ -59,7 +59,7 @@ def ExpedientView(request):
                             # print(f'{subject.Subject_Name} --- {submit.Item_Submitted.Item_Name} -- {item.Ponderation} --- {submit.Punctuation}')
                             value = item.Ponderation * (submit.Punctuation / 100)
                             # print(item.Ponderation * (submit.Punctuation / 100))
-                            grades.append(value)
+                            grades.append(round(value, 2))
 
                 grade.Mean = sum(grades)
 

@@ -75,7 +75,7 @@ class Teaching(models.Model):
 class Item(models.Model):
     Item_Name = models.CharField(primary_key=True, max_length=100)
     Item_From_Subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
-    Ponderation = models.IntegerField('Grades percentage, from 0 to 100%')
+    Ponderation = models.FloatField('Grades percentage, from 0 to 100%')
     #Puntuation = models.FloatField(max_length=5, default=0)
     Date = models.DateField()
 
