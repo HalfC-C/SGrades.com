@@ -1,5 +1,58 @@
  <!-- templates/expedient.html -->
 
-{% extends 'base.html' %}
-{% block content %} <h1>Expedient</h1>
-{% endblock content %}
+ {% extends 'base.html' %}
+ 
+ {% block content %} 
+
+    {% if user.is_authenticated %}
+        <br>
+        <h1 style="text-align:center">
+            {{ Student_list.Name }}'s Expedient
+        </h1>
+        <hr>
+
+       
+
+                <table class="table">
+                    <thead>  
+                        <tr style="text-align:center">
+                            <th scope="col">Subject Name</th>
+                            <th scope="col">Mean grade</th>
+                            <th scope="col">Course</th>
+                        </tr>
+                        </tr>
+                </thead>
+                <tbody>
+
+                    {% for grades in Grades_list %}
+                        {% if grades.Student.Name == Student_list.Name %}
+                            <tr style="text-align:center">
+                                <td>
+                                    {{grades.Subject_Grades.Subject_Name}}
+                                </td>
+                                <td>
+                                    {{grades.Mean}}
+                                </td>
+                                <td>
+                                    {{grades.Subject_Grades.Course}}
+                                </td>
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                </tbody>
+                </table>
+   
+        
+
+
+    {% else %}
+        <br>
+            <h1 style="text-align:center">
+                You are not logged in
+            </h1>
+        <hr>
+        
+    {% endif %}
+
+
+ {% endblock content %}
