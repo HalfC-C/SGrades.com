@@ -46,7 +46,18 @@
                 {% endfor %}
             </tbody>
           </table>
+    {% else %}
+            <p style="text-align:center">
+                <font size="+3" style="padding: 20">
+                    You are not logged in
+                </font>
 
+            </p>
+            <p style="text-align:center">
+                <a href="{% url 'login' %}" style="padding: 20;">
+                    Log In
+                </a>
+            </p>
     {% endif %}
 
  {% endblock content %}
