@@ -12,6 +12,7 @@ urlpatterns = [
     path('editormode/', EditorModeView, name='editormode'),
     
     path('editormode/editornewstudent/', EditorNewStudentView.as_view(), name='editornewstudent'),
+    path('item/<str:pk>/edit_change_student/', EditorChangeStudentView.as_view(), name='edit_change_student'),
     path('editormode/student_list/', StudentListView, name='student_list'),
     path('student/<str:pk>/', StudentDetailView.as_view(), name='student_detail'),
     
@@ -21,14 +22,17 @@ urlpatterns = [
     path('grade/<int:pk>', GradeDetailView.as_view(), name='grade_detail'),
     
     path('editormode/editornewitem/', EditorNewItemView.as_view(), name='editornewitem'),
+    path('item/<str:pk>/edit_change_item/', EditorChangeItemView.as_view(), name='edit_change_item'),
     path('editormode/item_list/', ItemListView, name='item_list'),
     path('item/<str:pk>/', ItemDetailView.as_view(), name='item_detail'),
     
     path('editormode/editornewsubject/', EditorNewSubjectView.as_view(), name='editornewsubject'),
+    path('subject/<str:pk>/edit_change_subject/', EditorChangeSubjectView.as_view(), name='edit_change_subject'),
     path('editormode/subject_list/', SubjectListView, name='subject_list'),
     path('subject/<str:pk>/', SubjectDetailView.as_view(), name='subject_detail'),
     
     path('editormode/editornewsubmit/', EditorNewSubmitView.as_view(), name='editornewsubmit'),
+    path('submit/<int:pk>/edit_change_submit/', EditorChangeSubmitView.as_view(), name='edit_change_submit'),
     path('editormode/submit_list/', SubmitListView, name='submit_list'),
     path('submit/<int:pk>/', SubmitDetailView.as_view(), name='submit_detail'),
 
