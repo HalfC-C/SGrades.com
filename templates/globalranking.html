@@ -1,36 +1,52 @@
 <!-- templates/home.html -->
 
 {% extends 'base.html' %}
-{% block content %}
-    <h1 style="text-align: center">Global Ranking</h1>
-    <table class="table">
-  <thead>
-    <tr align="center">
-      <th scope="col">#</th>
-      <th scope="col">First Name</th>
-      <th scope="col">Last Name</th>
-      <th scope="col">Average Grade</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr align="center">
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-    </tr>
-    <tr align="center">
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-    </tr>
-    <tr align="center">
-      <th scope="row">3</th>
-      <td>Larry the Bird</td>
-        <td>Calvo</td>
-      <td>@twitter</td>
-    </tr>
-  </tbody>
-</table>
-{% endblock content %}
+ 
+ {% block content %} 
+
+    
+
+    {% if user.is_authenticated %}
+        <br>
+        <h1 style="text-align:center">
+            Global Ranking
+        </h1>
+        <hr>
+
+    
+
+          <table class="table">
+              <thead>  
+                  <tr style="text-align:center">
+                      <th scope="col">#</th>
+                      <th scope="col">Student Name</th>
+                      <th scope="col">Mean grade</th>
+                      <th scope="col">Course</th>
+                  </tr>
+              </thead>
+            <tbody>
+                {% for best in best_students %}
+                   
+                        <tr style="text-align:center">
+                            <td>
+                            {{ best.Ranking }}
+
+                           </td>
+                            <td>
+                                {{best.Name}}
+                            </td>
+                            <td>
+                                {{best.Expedient}}
+                            </td>
+                            <td>
+                                {{best.Course}}
+                            </td>
+                        </tr>
+
+                {% endfor %}
+            </tbody>
+          </table>
+
+    {% endif %}
+
+ {% endblock content %}

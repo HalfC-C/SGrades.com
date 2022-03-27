@@ -1,31 +1,214 @@
+from django.views.generic import ListView, TemplateView
 from django.shortcuts import render
-from django.views.generic import TemplateView
+from django.contrib.auth.models import User
 
+from .models import *
 
 # Create your views here.
+
 class HomePageView(TemplateView):
     template_name = 'home.html'
 
+def GlobalRankingView(request):
 
-class GlobalRankingView(TemplateView):
-    template_name = 'globalranking.html'
+    Grades_list = Grade.objects.all()
+    Student_list = Student.objects.all()
+    Subject_number = Subject.objects.count()
+
+    # print(Subject_number)
+    counter = 1
+    best_students = []
+
+    for student in Student_list:
+        student.Expedient = student.expedient_mean
+        # print(student.Expedient)
+
+        if best_students == []:
+            best_students.append(student)
+        else:
+            for best in best_students:
+                index = best_students.index(best)
+                if student.Expedient <= best.Expedient:
+                    best_students.insert(index + 1, student)
+                    break
+                else:
+                    best_students.insert(index, student)
+                    break
+
+    for student in best_students:
+        student.Ranking = best_students.index(student) + 1
+    # print(best_students)
 
 
-class SubjectRankingView(TemplateView):
-    template_name = 'subjectranking.html'
+    # means = []
+    # expedient_means = []
+    # best_students = []
+
+    # for student in Student_list:
+    #     for grade in Grades_list:
+    #         grade.Mean = grade.mean
+    #         # print(grade.Mean)
+        
+    #         if grade.Student.Name == student.Name:
+    #             means.append(grade.Mean)
+    #             # print(grade.Student.Name)   
+        
+    #     expedient_mean = sum(means)/Subject_number
+    #     print(expedient_mean)
+         
+    #     means = []
+
+   
+    context = {
+        'best_students' : best_students,
+        # 'counter' : counter,
+    }
+
+    return render(request, 'globalranking.html', context)
+
+# class GlobalRankingView(TemplateView):
+#     template_name = 'globalranking.html'
 
 
-class ExpedientView(TemplateView):
-    template_name = 'expedient.html'
+def SubjectRankingView(request):
+
+    Grades_list = Grade.objects.all()
+    Subject_list = Subject.objects.all()
+
+    for grades in Grades_list:
+        grades.Mean = grades.mean
+        # print(grades.Mean)
+
+    best_students = []
+
+    for subject in Subject_list:
+        for grades in Grades_list:
+            if grades.Subject_Grades.Subject_Name == subject.Subject_Name:
+                # print(subject)
+                # print(grades.Student.Name)
+                # print(grades.Mean)
+
+                if best_students == []:
+                    best_students.append(grades.Student)
+                else:
+                    for best in best_students:
+                        index = best_students.index(best)
+                        if grades.Student.Expedient <= best.Expedient:
+                            best_students.insert(index + 1, grades.Student)
+                            break
+                        else:
+                            best_students.insert(index, grades.Student)
+                            break
+
+        # print(best_students)
+        subject.Best_Student = best_students[0]
+        # print(subject.Best_Student)
+        best_students = []
+        
+
+    context = {
+        'Subject_list': Subject_list,
+        'Grades_list' : Grades_list,
+    }
+    return render(request, 'subjectranking.html', context)
+     
 
 
-class GradesView(TemplateView):
-    template_name = 'grades.html'
+# class ExpedientView(TemplateView):
+#     template_name = 'expedient.html'
+
+def ExpedientView(request):
+
+    try:
+        current_student = User.objects.get(username = request.user)
+    except:
+        context = {}
+        return render(request, 'grades.html', context)
+
+    missing_user = True
+    Student_list = Student.objects.all()
+
+    for student in Student_list:
+        if current_student.username == student.Name:
+            missing_user = False
 
 
-class LoginView(TemplateView):
-    template_name = 'login.html'
+   # Student_list = Student.objects.get(Name = current_student)
+    Subjects_list = Subject.objects.all()
+    Grades_list = Grade.objects.all()
+    # Item_list = Item.objects.all()
+
+    # Submit_list = Submit.objects.all()
+
+    context = {
+        'missing_user' : missing_user,
+        'current_student' : current_student.username,
+        'Subjects_list' : Subjects_list,
+        'Grades_list' : Grades_list
+    }
+
+    for grades in Grades_list:
+        # print(grades)
+        # print(f'{grades.Student.Name} --- {grades.Subject_Grades.Subject_Name} --- {grades.mean}')
+        grades.Mean = grades.mean
+        # print('\n')
+
+    # grades = []
+
+    # for grade in Grades_list:
+    #     for subject in Subjects_list:
+    #         if grade.Student.Name == current_student.username and grade.Subject_Grades.Subject_Name == subject.Subject_Name:
+    #             for submit in Submit_list:
+    #                 for item in Item_list:
+    #                     if submit.Student.Name == current_student.username \
+    #                         and item.Item_From_Subject.Subject_Name == subject.Subject_Name \
+    #                         and submit.Item_Submitted.Item_Name == item.Item_Name:
+    #                         value = item.Ponderation * (submit.Punctuation / 100)
+    #                         grades.append(value)
+
+    #             grade.Mean = round(sum(grades), 2)
+    #             grades = []
+
+    return render(request, 'expedient.html', context)
+
+# class GradesView(TemplateView):
+#     template_name = 'grades.html'
+
+
+def GradesView(request):
+
+    try:
+        current_student = User.objects.get(username = request.user)
+    except:
+        context = {}
+        return render(request, 'grades.html', context)
+
+    missing_user = True
+    Student_list = Student.objects.all()
+
+    for student in Student_list:
+        if current_student.username == student.Name:
+            missing_user = False
+
+    Submit_list = Submit.objects.all()
+    Grades_list = Grade.objects.all()
+
+    context = {
+        'Submit_list' : Submit_list,
+        'Grades_list' : Grades_list,
+        'missing_user' : missing_user,
+        'current_student' : current_student.username,
+    }
+
+    return render(request, 'grades.html', context)
+
+
+
+
+# class LoginView(TemplateView):
+#     template_name = 'login.html'
 
 
 class RegisterView(TemplateView):
     template_name = 'register.html'
+

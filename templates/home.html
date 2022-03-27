@@ -1,5 +1,33 @@
-<!-- templates/home.html -->
-
 {% extends 'base.html' %}
-{% block content %} <h1>Homepage</h1>
+
+{% block title %}
+    Home
+{% endblock title %}
+
+{% block content %}
+    {% if user.is_authenticated %}
+        <br>
+        <h1 style="text-align:center">
+            Hi {{ user.username }}! Welcome to SGrades.com!
+        </h1>
+        <hr>
+        <p style="text-align:center">
+            <a href="{% url 'logout' %}" style="padding: 20;">
+                Log Out
+            </a>
+        </p>
+    {% else %}
+        <br>
+        <h1 style="text-align:center">
+            You are not logged in
+        </h1>
+        <hr>
+             
+        <p style="text-align:center">
+            <a href="{% url 'login' %}" style="padding: 20;">
+                Log In
+            </a>
+        </p>
+       
+    {% endif %}
 {% endblock content %}
