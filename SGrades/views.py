@@ -1,7 +1,7 @@
 from django.views.generic import ListView, TemplateView, DeleteView, DetailView
 from django.shortcuts import render
 from django.contrib.auth.models import User
-
+from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView, UpdateView
 
 from .models import *
@@ -225,6 +225,11 @@ class EditorNewStudentView(CreateView):
     template_name = 'edit_new_student.html'    
     fields = ['Student_Nif', 'Name','Surname', 'Course']
 
+class EditorDeleteStudentView(DeleteView):
+    model = Student
+    template_name = 'edit_delete_student.html'
+    success_url = reverse_lazy('student_list')
+
 class EditorChangeStudentView(UpdateView):
     model = Student
     template_name = 'edit_change_student.html'
@@ -253,6 +258,11 @@ class EditorChangeGradeView(UpdateView):
     template_name = 'edit_change_grade.html'
     fields = ['Student', 'Subject_Grades']
 
+class EditorDeleteGradeView(DeleteView):
+    model = Grade
+    template_name = 'edit_delete_grade.html'
+    success_url = reverse_lazy('grades_list')
+
 class GradeDetailView(DetailView):
     model = Grade
     template_name = 'detail_grade.html'
@@ -263,6 +273,11 @@ class EditorNewSubmitView(CreateView):
     model = Submit#, Subject, Grade, Submit, Item
     template_name = 'edit_new_submit.html'    
     fields = ['Student', 'Item_Submitted','Punctuation']
+
+class EditorDeleteSubmitView(DeleteView):
+    model = Submit
+    template_name = 'edit_delete_submit.html'
+    success_url = reverse_lazy('submit_list')
 
 class EditorChangeSubmitView(UpdateView):
     model = Submit
@@ -281,6 +296,11 @@ class EditorNewItemView(CreateView):
     model = Item#, Subject, Grade, Submit, Item
     template_name = 'edit_new_item.html'    
     fields = ['Item_Name', 'Item_From_Subject','Ponderation', 'Date']
+
+class EditorDeleteItemView(DeleteView):
+    model = Item
+    template_name = 'edit_delete_item.html'
+    success_url = reverse_lazy('item_list')
 
 class EditorChangeItemView(UpdateView):
     model = Item
@@ -303,6 +323,11 @@ class EditorNewSubjectView(CreateView):
 class EditorChangeSubjectView(UpdateView):
     model = Subject
     template_name = 'edit_change_subject.html'
+
+class EditorDeleteSubjectView(DeleteView):
+    model = Subject
+    template_name = 'edit_delete_subject.html'
+    success_url = reverse_lazy('subject_list')
 
 def SubjectListView(request):
     return render(request, 'subject_list.html', {'Subject_list' : Subject.objects.all()})

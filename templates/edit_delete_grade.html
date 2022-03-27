@@ -1,0 +1,9 @@
+<!-- templates/edit_delete_grade.html -->
+
+{% extends 'base.html' %}
+{% block content %}
+    <h1>Delete Grade</h1>
+    <form action="" method="post">{% csrf_token %}
+        <p>Are you sure you want to delete "{{ object.Subject_Grades }}"?</p>
+    <input type="submit" value="Confirm" /> </form>
+{% endblock content %}
