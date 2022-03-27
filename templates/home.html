@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+  {% load static %}
 {% block title %}
     Home
 {% endblock title %}
@@ -12,9 +12,7 @@
         </h1>
         <hr>
         <p style="text-align:center">
-            <a href="{% url 'logout' %}" style="padding: 20;">
-                Log Out
-            </a>
+            <img src="{% static "../static/images/SGrades.png" %}" alt="home" />
         </p>
     {% else %}
         <br>

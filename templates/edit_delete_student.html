@@ -1,0 +1,9 @@
+<!-- templates/edit_delete_student.html -->
+
+{% extends 'base.html' %}
+{% block content %}
+    <h1 style="text-align: center">Delete Student</h1>
+    <form style="text-align: center" action="" method="post">{% csrf_token %}
+        <p>Are you sure you want to delete "{{ object.Name }} {{ object.Surname }}"?</p>
+    <input type="submit" value="Confirm" /> </form>
+{% endblock content %}
