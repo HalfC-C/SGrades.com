@@ -1,6 +1,8 @@
-from django.views.generic import ListView, TemplateView
+from django.views.generic import ListView, TemplateView, DeleteView
 from django.shortcuts import render
 from django.contrib.auth.models import User
+
+from django.views.generic.edit import CreateView, UpdateView
 
 from .models import *
 
@@ -211,4 +213,35 @@ def GradesView(request):
 
 class RegisterView(TemplateView):
     template_name = 'register.html'
+
+
+def EditorModeView(request):
+
+    context = {}
+    return render(request, 'editormode.html', context)
+
+class EditorNewStudentView(CreateView):
+    model = Student#, Subject, Grade, Submit, Item
+    template_name = 'edit_new_student.html'    
+    fields = ['Student_Nif', 'Name','Surname', 'Course']
+
+class EditorNewGradeView(CreateView):
+    model = Grade#, Subject, Grade, Submit, Item
+    template_name = 'edit_new_grade.html'    
+    fields = ['Student', 'Subject_Grades']
+
+class EditorNewSubmitView(CreateView):
+    model = Submit#, Subject, Grade, Submit, Item
+    template_name = 'edit_new_submit.html'    
+    fields = ['Student', 'Item_Submitted','Punctuation']
+
+class EditorNewItemView(CreateView):
+    model = Item#, Subject, Grade, Submit, Item
+    template_name = 'edit_new_item.html'    
+    fields = ['Item_Name', 'Item_From_Subject','Ponderation', 'Date']
+
+class EditorNewSubjectView(CreateView):
+    model = Subject#, Subject, Grade, Submit, Item
+    template_name = 'edit_new_subject.html'    
+    fields = ['Subject_Name', 'Course']
 

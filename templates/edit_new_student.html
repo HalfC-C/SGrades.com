@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <br>
+        <h1 style="text-align:center">
+            Editor mode: Add new Student
+        </h1>
+    <hr>
+
+    <form action="" method="post" style="text-align:center">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Save">
+    </form>    
+
+{% endblock %}
