@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <br>
+        <h1 style="text-align:center">
+            Editor mode
+        </h1>
+    <hr>
+
+    <table class="table">
+        <thread>
+            <br><br>
+            <p style="text-align:center">
+                <b>
+                    Choose your action:
+                </b>
+            </p>
+            <hr>
+            <tr style="text-align:center">
+            <th scope="col">Add</th>
+            <th scope="col">Edit</th>
+            <th scope="col">Remove</th>
+            </tr>
+        </thread>
+        <tbody style="text-align:center">
+            <tr>
+                <td>
+                    <a href="{% url 'editornewsubject' %}">
+                        Add new Subject
+                    </a>
+                </td>
+                <td>
+                    <a href="{% url 'subject_list' %}">
+                        Subject list
+                    </a>
+                </td>
+                <td>
+                    Delete Subject
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <a href="{% url 'editornewgrade' %}">
+                        Add new Grade
+                    </a>
+                    
+                </td>
+                <td>
+                    <a href="{% url 'grades_list' %}">
+                        Grades list
+                    </a>
+                </td>
+                <td>
+                    Delete Grade
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <a href="{% url 'editornewitem' %}">
+                        Add new Item
+                    </a>
+                    
+                </td>
+                <td>
+                    <a href="{% url 'item_list' %}">
+                        Item list
+                    </a>
+                </td>
+                <td>
+                    Delete Item
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <a href="{% url 'editornewsubmit' %}">
+                        Add new Submit
+                    </a>
+                    
+                </td>
+                <td>
+                    <a href="{% url 'submit_list' %}">
+                        Submit list
+                    </a>
+                </td>
+                <td>
+                    Delete Submit
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <a href="{% url 'editornewstudent' %}">
+                        Add new Student
+                    </a>
+                    
+                </td>
+                <td>
+                    <a href="{% url 'student_list' %}">
+                        Student list
+                    </a>
+                </td>
+                <td>
+                    Delete Student
+                </td>
+            </tr>
+        </tbody>
+
+    </table>
+   
+
+{% endblock %}

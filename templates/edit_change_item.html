@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <br>
+        <h1 style="text-align:center">
+            Editor mode: Edit Item
+        </h1>
+    <hr>
+
+    <p style="text-align:center">
+        <b>
+            Edit Item:
+        </b>
+    </p>
+    <form action="" method="post" style="text-align:center">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Update">
+    </form>
+
+{% endblock %}

@@ -1,19 +1,28 @@
 from django.db import models
 from django.contrib.auth.models import User
 # Create your models here.
+from django.urls import reverse
 
 
 class Student(models.Model):
+
+    COURSES = (
+        ('3', 'Tercer curso'),
+    )
+
     Student_Nif = models.CharField(primary_key=True, max_length=10)
     Name = models.CharField(max_length=20)
     Surname = models.CharField(max_length=50)
     Expedient = models.FloatField(blank=True, default=0, editable=False)
     # DisplayFields = ['Student_Nif', 'Name', 'Surname']
     Ranking = models.IntegerField(editable=False, default=0)
-    Course = models.IntegerField()
+    Course = models.CharField(choices=COURSES, max_length=1)
 
     def __str__(self):
         return f'{self.Name} {self.Surname}'
+
+    def get_absolute_url(self):
+        return reverse('student_detail', args=[str(self.pk)])
 
     @property
     def expedient_mean(self):
@@ -56,6 +65,9 @@ class Subject(models.Model):
 
     def __str__(self):
         return f'{self.Subject_Name}'
+
+    def get_absolute_url(self):
+        return reverse('subject_detail', args=[str(self.pk)])
 
 class Teaching(models.Model):
     Subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
@@ -104,6 +116,10 @@ class Item(models.Model):
     def __str__(self):
         return f'{self.Item_Name}'
 
+    def get_absolute_url(self):
+        return reverse('item_detail', args=[str(self.pk)])
+
+
 #TODO: esta clase no es necesaria, porque lo puede mostrar la vista y ya. Se puede conservar como forma de conservar los datos, pero que no hace falta
 class Grade(models.Model):
     Student = models.ForeignKey(Student, on_delete=models.CASCADE)
@@ -112,6 +128,9 @@ class Grade(models.Model):
 
     class Meta:
         unique_together = (('Student', 'Subject_Grades'),)
+
+    def get_absolute_url(self):
+        return reverse('grade_detail', args=[str(self.pk)])
 
     def __str__(self):
         return f'{self.Student} ----- {self.Subject_Grades}'
@@ -189,4 +208,7 @@ class Submit(models.Model):
 
     def __str__(self):
         return f'{self.Student} --- {self.Item_Submitted}'
+
+    def get_absolute_url(self):
+        return reverse('submit_detail', args=[str(self.pk)])
 

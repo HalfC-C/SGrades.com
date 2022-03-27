@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+    <br>
+        <h1 style="text-align:center">
+            Item list
+        </h1>
+    <hr>
+
+    {% for item in Item_list %}
+        <p style="text-align:center">
+            <a href="{% url 'item_detail' item.pk %}">
+                {{item}}
+            </a>
+            
+        </p>
+    {% endfor %}
+
+{% endblock %}

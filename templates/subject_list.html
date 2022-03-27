@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+    <br>
+        <h1 style="text-align:center">
+            Subject list
+        </h1>
+    <hr>
+
+    {% for subject in Subject_list %}
+        <p style="text-align:center">
+            <a href="{% url 'subject_detail' subject.pk %}">
+                {{subject}}
+            </a>
+            
+        </p>
+    {% endfor %}
+
+{% endblock %}

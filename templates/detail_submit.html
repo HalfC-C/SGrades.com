@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <br>
+        <h1 style="text-align:center">
+            Submit Details
+        </h1>
+        <p style="text-align:center">
+            <a href="{% url 'edit_change_submit' object.pk %}">
+                Edit Submit
+            </a>
+        </p>
+    <hr>
+
+    <div class="post-entry">
+        <br>
+        <h2 style="text-align:center">
+            Student: {{ object.Student }}
+        </h2>
+        <h2 style="text-align:center">
+            Item: {{ object.Item_Submitted }}
+        </h2>
+        <h2 style="text-align:center">
+            Punctuation: {{ object.Punctuation }}
+        </h2>
+    </div>
+
+
+{% endblock content %}

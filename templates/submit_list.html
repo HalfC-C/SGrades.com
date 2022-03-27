@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+    <br>
+        <h1 style="text-align:center">
+            Submit list
+        </h1>
+    <hr>
+
+    {% for submit in Submit_list %}
+        <p style="text-align:center">
+            <a href="{% url 'submit_detail' submit.pk %}">
+                {{submit}}
+            </a>
+            
+        </p>
+    {% endfor %}
+
+{% endblock %}
