@@ -6,6 +6,5 @@ from .models import *
 admin.site.register(Student)
 admin.site.register(Subject)
 admin.site.register(Item)
-admin.site.register(Teaching)
 admin.site.register(Grade)
 admin.site.register(Submit)

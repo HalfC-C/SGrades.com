@@ -1,0 +1,9 @@
+<!-- templates/edit_delete_subject.html -->
+
+{% extends 'base.html' %}
+{% block content %}
+    <h1 style="text-align: center">Delete Subject</h1>
+    <form action="" method="post">{% csrf_token %}
+        <p>Are you sure you want to delete "{{ object.Subject_Name }}"?</p>
+    <input type="submit" value="Confirm" /> </form>
+{% endblock content %}
