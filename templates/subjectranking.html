@@ -1,35 +1,52 @@
-<!-- templates/subjectranking.html -->
+<!-- templates/home.html -->
 
 {% extends 'base.html' %}
-{% block content %}
-    <h1>Subject Ranking</h1>
-    <table class="table">
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">Name</th>
-      <th scope="col">Subject</th>
-      <th scope="col">Grade</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td colspan="2">Larry the Bird</td>
-      <td>@twitter</td>
-    </tr>
-  </tbody>
-</table>
-{% endblock content %}
+ 
+ {% block content %} 
+
+    
+
+    {% if user.is_authenticated %}
+        <br>
+        <h1 style="text-align:center">
+            Subject Ranking
+        </h1>
+        <hr>
+          <table class="table">
+              <thead>  
+                  <tr style="text-align:center">
+                      <th scope="col">Subject</th>
+                      <th scope="col">Student Name</th>
+                      <th scope="col">Mean grade</th>
+                      <th scope="col">Course</th>
+                  </tr>
+              </thead>
+            <tbody>
+                {% for subject in Subject_list %}
+                  {% for grades in Grades_list %}
+                    {% if grades.Subject_Grades.Subject_Name == subject.Subject_Name and grades.Student.Name == subject.Best_Student.Name %}
+                   
+                        <tr style="text-align:center">
+                            <td>
+                            {{ subject.Subject_Name }}
+
+                           </td>
+                            <td>
+                                {{subject.Best_Student}}
+                            </td>
+                            <td>
+                                {{grades.Mean}}
+                            </td>
+                            <td>
+                                {{subject.Course}}
+                            </td>
+                        </tr>
+                    {% endif %}
+                  {% endfor %}
+                {% endfor %}
+            </tbody>
+          </table>
+
+    {% endif %}
+
+ {% endblock content %}

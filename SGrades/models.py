@@ -10,6 +10,7 @@ class Student(models.Model):
     Expedient = models.FloatField(blank=True, default=0, editable=False)
     # DisplayFields = ['Student_Nif', 'Name', 'Surname']
     Ranking = models.IntegerField(editable=False, default=0)
+    Course = models.IntegerField()
 
     def __str__(self):
         return f'{self.Name} {self.Surname}'
@@ -50,7 +51,7 @@ class Subject(models.Model):
     
     Subject_Name = models.CharField(primary_key=True, choices=NAMES, max_length=5)
     Course = models.CharField(choices=COURSES, max_length=1)
-   
+    Best_Student = models.ForeignKey(Student, on_delete=models.CASCADE, editable=False)
     
 
     def __str__(self):

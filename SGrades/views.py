@@ -21,7 +21,7 @@ def GlobalRankingView(request):
 
     for student in Student_list:
         student.Expedient = student.expedient_mean
-        print(student.Expedient)
+        # print(student.Expedient)
 
         if best_students == []:
             best_students.append(student)
@@ -36,8 +36,8 @@ def GlobalRankingView(request):
                     break
 
     for student in best_students:
-        student.Ranking = best_students.index(student)
-    print(best_students)
+        student.Ranking = best_students.index(student) + 1
+    # print(best_students)
 
 
     # means = []
@@ -61,7 +61,7 @@ def GlobalRankingView(request):
    
     context = {
         'best_students' : best_students,
-        'counter' : counter,
+        # 'counter' : counter,
     }
 
     return render(request, 'globalranking.html', context)
@@ -70,8 +70,48 @@ def GlobalRankingView(request):
 #     template_name = 'globalranking.html'
 
 
-class SubjectRankingView(TemplateView):
-    template_name = 'subjectranking.html'
+def SubjectRankingView(request):
+
+    Grades_list = Grade.objects.all()
+    Subject_list = Subject.objects.all()
+
+    for grades in Grades_list:
+        grades.Mean = grades.mean
+        # print(grades.Mean)
+
+    best_students = []
+
+    for subject in Subject_list:
+        for grades in Grades_list:
+            if grades.Subject_Grades.Subject_Name == subject.Subject_Name:
+                # print(subject)
+                # print(grades.Student.Name)
+                # print(grades.Mean)
+
+                if best_students == []:
+                    best_students.append(grades.Student)
+                else:
+                    for best in best_students:
+                        index = best_students.index(best)
+                        if grades.Student.Expedient <= best.Expedient:
+                            best_students.insert(index + 1, grades.Student)
+                            break
+                        else:
+                            best_students.insert(index, grades.Student)
+                            break
+
+        # print(best_students)
+        subject.Best_Student = best_students[0]
+        # print(subject.Best_Student)
+        best_students = []
+        
+
+    context = {
+        'Subject_list': Subject_list,
+        'Grades_list' : Grades_list,
+    }
+    return render(request, 'subjectranking.html', context)
+     
 
 
 # class ExpedientView(TemplateView):
