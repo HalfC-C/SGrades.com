@@ -14,33 +14,27 @@ class HomePageView(TemplateView):
 
 
 def GlobalRankingView(request):
-    Student_list = Student.objects.all()
 
-    # print(Subject_number)
-    counter = 1
+    Student_list = Student.objects.all()
     best_students = []
 
     for student in Student_list:
         student.Expedient = student.expedient_mean
-        # print(student.Expedient)
-
         if best_students == []:
             best_students.append(student)
         else:
             for best in best_students:
                 index = best_students.index(best)
-                if student.Expedient <= best.Expedient:
-                    best_students.insert(index + 1, student)
-                    break
-                else:
+                if student.Expedient > best.Expedient:
                     best_students.insert(index, student)
                     break
+            best_students.insert(len(best_students), student)
 
     for student in best_students:
         student.Ranking = best_students.index(student) + 1
 
     context = {
-        'best_students': best_students,
+        'best_students' : best_students,
     }
 
     return render(request, 'globalranking.html', context)
@@ -171,7 +165,7 @@ class StudentDetailView(DetailView):
 
 
 class EditorNewGradeView(CreateView):
-    model = Grade  # , Subject, Grade, Submit, Item
+    model = Grade
     template_name = 'edit_new_grade.html'
     fields = ['Student', 'Subject_Grades']
 
@@ -198,7 +192,7 @@ class GradeDetailView(DetailView):
 
 
 class EditorNewSubmitView(CreateView):
-    model = Submit  # , Subject, Grade, Submit, Item
+    model = Submit
     template_name = 'edit_new_submit.html'
     fields = ['Student', 'Item_Submitted', 'Punctuation']
 
@@ -225,7 +219,7 @@ class SubmitDetailView(DetailView):
 
 
 class EditorNewItemView(CreateView):
-    model = Item  # , Subject, Grade, Submit, Item
+    model = Item
     template_name = 'edit_new_item.html'
     fields = ['Item_Name', 'Item_From_Subject', 'Ponderation', 'Date']
 
@@ -252,7 +246,7 @@ class ItemDetailView(DetailView):
 
 
 class EditorNewSubjectView(CreateView):
-    model = Subject  # , Subject, Grade, Submit, Item
+    model = Subject
     template_name = 'edit_new_subject.html'
     fields = ['Subject_Name', 'Course']
 
