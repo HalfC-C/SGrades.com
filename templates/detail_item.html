@@ -2,6 +2,18 @@
 
 {% block content %}
     <div class="post-entry">
+
+        <br>
+            <h1 style="text-align:center">
+                Item Details
+            </h1>
+            <p style="text-align:center">
+                <a href="{% url 'edit_change_item' object.pk %}">
+                    Edit Item
+                </a>
+            </p>
+        <hr>
+
         <br>
         <h2 style="text-align:center">
             Name: {{ object.Item_Name }}
@@ -10,7 +22,7 @@
             Subject: {{ object.Item_From_Subject }}
         </h2>
         <h2 style="text-align:center">
-            Ponderation: {{ object.Ponderation }}
+            Ponderation: {{ object.Ponderation }} %
         </h2>
         <h2 style="text-align:center">
             Date: {{ object.Date }}

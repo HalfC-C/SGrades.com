@@ -225,9 +225,20 @@ class EditorNewStudentView(CreateView):
     template_name = 'edit_new_student.html'    
     fields = ['Student_Nif', 'Name','Surname', 'Course']
 
+class EditorChangeStudentView(UpdateView):
+    model = Student
+    template_name = 'edit_change_student.html'
+    fields = ['Student_Nif', 'Name','Surname', 'Course']
+
+def StudentListView(request):
+    return render(request, 'student_list.html', {'Student_list' : Student.objects.all()})
+
 class StudentDetailView(DetailView):
     model = Student
     template_name = 'detail_student.html'
+
+
+
 
 class EditorNewGradeView(CreateView):
     model = Grade#, Subject, Grade, Submit, Item
@@ -246,29 +257,55 @@ class GradeDetailView(DetailView):
     model = Grade
     template_name = 'detail_grade.html'
 
+
+
 class EditorNewSubmitView(CreateView):
     model = Submit#, Subject, Grade, Submit, Item
     template_name = 'edit_new_submit.html'    
     fields = ['Student', 'Item_Submitted','Punctuation']
 
+class EditorChangeSubmitView(UpdateView):
+    model = Submit
+    template_name = 'edit_change_submit.html'
+    fields = ['Student', 'Item_Submitted','Punctuation']
+
+def SubmitListView(request):
+    return render(request, 'submit_list.html', {'Submit_list' : Submit.objects.all()})
 class SubmitDetailView(DetailView):
     model = Submit
     template_name = 'detail_submit.html'
+
+
 
 class EditorNewItemView(CreateView):
     model = Item#, Subject, Grade, Submit, Item
     template_name = 'edit_new_item.html'    
     fields = ['Item_Name', 'Item_From_Subject','Ponderation', 'Date']
 
+class EditorChangeItemView(UpdateView):
+    model = Item
+    template_name = 'edit_change_item.html'
+    fields = ['Item_Name', 'Item_From_Subject','Ponderation', 'Date']
+
+def ItemListView(request):
+    return render(request, 'item_list.html', {'Item_list' : Item.objects.all()})
 class ItemDetailView(DetailView):
     model = Item
     template_name = 'detail_item.html'
+
+
 
 class EditorNewSubjectView(CreateView):
     model = Subject#, Subject, Grade, Submit, Item
     template_name = 'edit_new_subject.html'    
     fields = ['Subject_Name', 'Course']
 
+class EditorChangeSubjectView(UpdateView):
+    model = Subject
+    template_name = 'edit_change_subject.html'
+
+def SubjectListView(request):
+    return render(request, 'subject_list.html', {'Subject_list' : Subject.objects.all()})
 class SubjectDetailView(DetailView):
     model = Subject
     template_name = 'detail_subject.html'

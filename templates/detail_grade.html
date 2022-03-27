@@ -1,8 +1,22 @@
 {% extends 'base.html' %}
 
 {% block content %}
+
+
     <div class="post-entry">
         
+        <br>
+        <h1 style="text-align:center">
+            Grades Details
+        </h1>
+        <p style="text-align:center">
+            <a href="{% url 'edit_change_grade' object.pk %}">
+                Edit Grade
+            </a>
+        </p>
+        
+        <hr>
+
         <br>
         <h2 style="text-align:center">
             Student: {{ object.Student }}
@@ -12,6 +26,8 @@
         </h2>
             
     </div>
+
+    
 
 
 {% endblock content %}

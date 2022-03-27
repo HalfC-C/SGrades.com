@@ -5,15 +5,16 @@
 
     <br>
         <h1 style="text-align:center">
-            Grades list
+            Submit list
         </h1>
     <hr>
 
-    {% for grades in Grades_list %}
+    {% for submit in Submit_list %}
         <p style="text-align:center">
-            <a href="{% url 'grade_detail' grades.pk %}">
-                {{grades}}
+            <a href="{% url 'submit_detail' submit.pk %}">
+                {{submit}}
             </a>
+            
         </p>
     {% endfor %}
 

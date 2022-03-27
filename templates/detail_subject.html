@@ -4,6 +4,17 @@
     <div class="post-entry">
         
         <br>
+            <h1 style="text-align:center">
+                Subject Details
+            </h1>
+            <p style="text-align:center">
+                <a href="{% url 'edit_change_subject' object.pk %}">
+                    Edit Subject
+                </a>
+            </p>
+        <hr>
+
+        <br>
         <h2 style="text-align:center">
             Subject_Name : {{ object.Subject_Name }} --- {{ object.Course }}
         </h2>
