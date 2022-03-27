@@ -269,3 +269,7 @@ def SubjectListView(request):
 class SubjectDetailView(DetailView):
     model = Subject
     template_name = 'detail_subject.html'
+
+
+class AdminManagementView(TemplateView):
+    template_name = 'adminmanagement.html'

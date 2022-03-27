@@ -1,5 +1,6 @@
 from django.urls import path
 from .views import *
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 urlpatterns = [
     path('globalranking/', GlobalRankingView, name='Global Ranking'),
@@ -20,6 +21,8 @@ urlpatterns = [
     path('editormode/grades_list/', GradesListView, name='grades_list'),
     path('grade/<int:pk>', GradeDetailView.as_view(), name='grade_detail'),
     path('grade/<int:pk>/edit_delete_grade/', EditorDeleteGradeView.as_view(), name='edit_delete_grade'),
+
+    path('gamba/', AdminManagementView.as_view(), name='admin_management'),
     
     path('editormode/editornewitem/', EditorNewItemView.as_view(), name='editornewitem'),
     path('item/<str:pk>/edit_change_item/', EditorChangeItemView.as_view(), name='edit_change_item'),
@@ -39,3 +42,5 @@ urlpatterns = [
     path('submit/<int:pk>/', SubmitDetailView.as_view(), name='submit_detail'),
     path('submit/<int:pk>/edit_delete_submit/', EditorDeleteSubmitView.as_view(), name='edit_delete_submit'),
 ]
+
+urlpatterns += staticfiles_urlpatterns()
