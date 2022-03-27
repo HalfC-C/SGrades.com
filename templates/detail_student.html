@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <div class="post-entry">
+        <br>
+        <h2 style="text-align:center">
+            NIF: {{ object.Student_Nif }}
+        </h2>
+        <h2 style="text-align:center">
+            Name: {{ object.Name }}
+        </h2>
+        <h2 style="text-align:center">
+            Surname: {{ object.Surname }}
+        </h2>
+        <h2 style="text-align:center">
+            Course: {{ object.Course }}
+        </h2>
+    </div>
+
+{% endblock content %}

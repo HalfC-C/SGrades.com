@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="post-entry">
+        <br>
+        <h2 style="text-align:center">
+            Name: {{ object.Item_Name }}
+        </h2>
+        <h2 style="text-align:center">
+            Subject: {{ object.Item_From_Subject }}
+        </h2>
+        <h2 style="text-align:center">
+            Ponderation: {{ object.Ponderation }}
+        </h2>
+        <h2 style="text-align:center">
+            Date: {{ object.Date }}
+        </h2>
+    </div>
+
+
+{% endblock content %}

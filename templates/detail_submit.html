@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <div class="post-entry">
+        <br>
+        <h2 style="text-align:center">
+            Student: {{ object.Student }}
+        </h2>
+        <h2 style="text-align:center">
+            Item: {{ object.Item_Submitted }}
+        </h2>
+        <h2 style="text-align:center">
+            Punctuation: {{ object.Punctuation }}
+        </h2>
+    </div>
+
+
+{% endblock content %}

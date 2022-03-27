@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+    <br>
+        <h1 style="text-align:center">
+            Grades list
+        </h1>
+    <hr>
+
+    {% for grades in Grades_list %}
+        <p style="text-align:center">
+            {{grades}}
+        </p>
+    {% endfor %}
+
+{% endblock %}
