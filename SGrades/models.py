@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.contrib.auth.models import User
 # Create your models here.
 
 
@@ -9,9 +9,30 @@ class Student(models.Model):
     Surname = models.CharField(max_length=50)
     Expedient = models.FloatField(blank=True, default=0, editable=False)
     # DisplayFields = ['Student_Nif', 'Name', 'Surname']
+    Ranking = models.IntegerField(editable=False, default=0)
 
     def __str__(self):
         return f'{self.Name} {self.Surname}'
+
+    @property
+    def expedient_mean(self):
+
+        Grades_list = Grade.objects.all()
+        Subject_number = Subject.objects.count()
+
+        means = []
+
+        for grade in Grades_list:
+            grade.Mean = grade.mean
+            # print(grade.Mean)    
+            if grade.Student.Name == self.Name:
+                means.append(grade.Mean)
+                # print(grade.Student.Name)   
+            
+        expedient_mean = sum(means)/Subject_number
+        # print(expedient_mean)       
+
+        return expedient_mean
 
 class Subject(models.Model):
     #TODO: se supone que el usuario debe poder poner estas cosas, mirar como se hace para que el usuario pueda interactuar
@@ -94,13 +115,71 @@ class Grade(models.Model):
     def __str__(self):
         return f'{self.Student} ----- {self.Subject_Grades}'
         
-    # @property
-    # def mean(self):
-    #     grades = []
-    #     grades_list = Grades.objects.all()
-    #     items_list = Item.objects.all()
-    #     for grades in grades_list:
-    #         print(grades)
+    @property
+    def mean(self):
+
+        Subjects_list = Subject.objects.all()
+        Grades_list = Grade.objects.all()
+        Item_list = Item.objects.all()
+        Submit_list = Submit.objects.all()
+
+        grades = []
+        means = []
+
+
+        # for subject in Subjects_list:
+        #     if subject.Subject_Name == self.Subject_Grades.Subject_Name:
+        #         print(subject)
+        #         for submit in Submit_list:
+        #             for item in Item_list:
+        #                 if item.Item_From_Subject.Subject_Name == subject.Subject_Name \
+        #                     and submit.Item_Submitted.Item_Name == item.Item_Name \
+        #                     and self.Student.Name == submit.Student.Name:
+        #                     print(f'{self.Student.Name} in subject {self.Subject_Grades.Subject_Name}, item {submit.Item_Submitted.Item_Name} got punctuation of {submit.Punctuation}')
+        #                     value = item.Ponderation * (submit.Punctuation / 100)
+        #                     grades.append(round(value, 2))
+        #                     print(round(value, 2))
+        #                     mean_value = round(sum(grades), 2)
+        #                     print(mean_value)
+        #                     self.Mean = mean_value
+                    
+        #             grades = []
+        # return mean_value
+
+
+        for item in Item_list:
+            #print(f'item: {item}')
+            if self.Subject_Grades.Subject_Name == item.Item_From_Subject.Subject_Name:
+             #   print(f'{self.Subject_Grades.Subject_Name} : {item.Item_Name}')
+                for submit in Submit_list:
+                    if submit.Item_Submitted.Item_Name == item.Item_Name \
+                        and submit.Student.Name == self.Student.Name:
+                        value = item.Ponderation * (submit.Punctuation / 100)
+                        grades.append(round(value, 2))
+                        # print(submit.Punctuation)
+                        # print(grades)
+                        means.append(round(value, 2))
+                # return sum(means)
+        return(round(sum(means), 2))
+
+
+
+        return 'no more none'
+        # for grade in Grades_list:
+        #     for subject in Subjects_list:
+        #         if grade.Subject_Grades.Subject_Name == subject.Subject_Name:
+        #             for submit in Submit_list:
+        #                 for item in Item_list:
+        #                     if item.Item_From_Subject.Subject_Name == subject.Subject_Name \
+        #                         and submit.Item_Submitted.Item_Name == item.Item_Name \
+        #                             and grade.Student.Name == submit.Student.Name:
+        #                         value = item.Ponderation * (submit.Punctuation / 100)
+        #                         grades.append(value)
+        #             mean = round(sum(grades), 2)
+        #             grade.Mean = mean
+        #             means.append(grade)
+        #             grades = []
+        # return means
 
 class Submit(models.Model):
     Student = models.ForeignKey(Student, on_delete=models.CASCADE)

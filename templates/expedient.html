@@ -33,7 +33,7 @@
                     <tbody>
 
                         {% for grades in Grades_list %}
-                            {% if grades.Student.Name == current_student.Name %}
+                            {% if grades.Student.Name == current_student %}
                                 <tr style="text-align:center">
                                     <td>
                                         {{grades.Subject_Grades.Subject_Name}}
